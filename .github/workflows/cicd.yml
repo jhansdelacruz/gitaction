@@ -3,7 +3,9 @@ name: CI/CD Pulumi
 run-name: ${{ github.actor }} - GitHub Actions 🚀
 
 on: 
-  push
+  push:
+    branches:
+      - main
   
 
 jobs:
