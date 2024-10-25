@@ -1,0 +1,48 @@
+name: CI/CD Pulumi
+run-name: ${{ github.actor }} - GitHub Actions 🚀
+  
+on:
+  workflow_dispatch:
+    inputs:
+      pulumi:
+        description: "Ejecutar para refrescar"
+        required: true
+        default: refresh
+        type: string
+  push:
+    branches:
+      - main
+      - develop
+      - "releases/**"
+    paths:
+      - 'lambdas/*'
+      - 'layers/*'
+      - 'otros/*'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  Prepare:
+    runs-on: self-hosted
+    steps:
+      - name: Clona el repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+  Build:
+    needs: Prepare
+    runs-on: self-hosted
+    steps:
+      - name: Configura Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Instala dependencias de Pulumi
+        working-directory: ./
+        run: npm ci
+      - name: desplegar
+        working-directory: ./
+        run: npm run up

@@ -1,0 +1,11 @@
+{
+  "name": "otros",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "up": "echo \"Despliegue: exitoso en otros\" && exit 0"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
